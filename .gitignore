@@ -4,5 +4,9 @@
 .terraform/
 .terraform.lock.hcl
 
+# Sensitive Terraform files
+terraform.tfvars
+*.tfvars
+
 # Ansible
 *.retry
