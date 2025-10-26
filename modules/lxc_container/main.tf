@@ -19,15 +19,28 @@ data "local_file" "sshkey" {
 }
 
 resource "proxmox_lxc" "ubuntu_containers" {
-  count        = var.container_count
+  count    = var.container_count
+  hostname = "testclient${count.index + 1}"
   target_node  = var.proxmox_host
   ostemplate   = var.base_template
   unprivileged = true
   password     = var.container_password
   ssh_public_keys = data.local_file.sshkey.content
-  memory   = var.memory
-  cores    = var.cpu
-  rootfs   = var.disk
+  memory   = 1024
+  cores    = 1
+
+  network{
+    name = "eth0"
+    bridge = "vmbr0"
+    ip = "192.168.0.${count.index + 203}/24"
+    gw = "192.168.0.1"
+
+  }
+
+  rootfs{
+    storage = "local-lvm"
+    size = "10G"
+  }
   
   features {
     nesting = true
@@ -68,7 +81,7 @@ resource "null_resource" "install_ssh" {
       type        = "ssh"
       user        = "root"
       private_key = file("~/.ssh/id_ed25519")
-      host     = "192.168.0.${count.index + 200}"  # example static IPs
+      host     = "192.168.0.${count.index + 203}"  # example static IPs
     }
   }
 }
