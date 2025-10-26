@@ -1,6 +1,0 @@
-proxmox_API_Token    = "ac00b061-a03e-4b27-9ce6-9b6ec31c213e"
-proxmox_API_Token_ID = "terraform@pam!test"
-container_password   = "12345"
-ansible_password = "ansible"
-ssh_public_key = "/home/kappa/.ssh/id_ed25519.pub"
-proxmox_host_address = "https://192.168.0.249:8006/api2/json"
