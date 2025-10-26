@@ -1,0 +1,22 @@
+---
+- name: Update all packages and install specific packages via apt
+  hosts: myhosts
+  become: yes  # to run tasks as sudo
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600  # (optional) ensures apt cache is updated if it's older than 1 hour
+
+    - name: Upgrade all installed packages
+      apt:
+        upgrade: yes
+
+    - name: Install specific packages
+      apt:
+        name:
+          - vim
+          - curl
+          - git
+          - figlet
+        state: present  # ensures the packages are installed

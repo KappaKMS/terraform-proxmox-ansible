@@ -1,0 +1,15 @@
+name: Terraform
+
+on:
+  push:
+    branches: [ main, dev ]
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v2
+      - run: terraform init
+      - run: terraform plan -var="ansible_password=${{ secrets.ANSIBLE_PASSWORD }}" -out=tfplan
+      - run: terraform apply -input=false tfplan
