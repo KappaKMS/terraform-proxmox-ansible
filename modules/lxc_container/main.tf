@@ -20,29 +20,15 @@ data "local_file" "sshkey" {
 
 resource "proxmox_lxc" "ubuntu_containers" {
   count        = var.container_count
-  hostname     = "ubuntu20-${count.index + 1}"
   target_node  = var.proxmox_host
   ostemplate   = var.base_template
   unprivileged = true
-  cores        = 1
-  memory       = 1024
   password     = var.container_password
   ssh_public_keys = data.local_file.sshkey.content
+  memory   = var.memory
+  cores    = var.cpu
+  rootfs   = var.disk
   
-
-  network {
-    name   = "eth0"
-    bridge = "vmbr0"
-    ip     = "192.168.0.${count.index + 200}/24"
-    gw = "192.168.0.1"
-  }
-
-  rootfs {
-    storage = "local-lvm"
-    size    = "16G"
-  }
-
-
   features {
     nesting = true
   }

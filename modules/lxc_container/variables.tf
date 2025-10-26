@@ -52,17 +52,27 @@ sensitive   = true
 }
 
 variable "name" {
-
+  description = "Hostname of the container"
+  type        = string
 }
+
 variable "memory" {
-
+  description = "RAM in MB"
+  type        = number
 }
+
 variable "cpu" {
-
+  description = "Number of CPU cores"
+  type        = number
 }
+
 variable "disk" {
-
+  description = "Root disk size"
+  type        = string
 }
-variable "ssh_pubkey" {
-  
+
+variable "net0" {
+  description = "Network configuration for container"
+  type        = string
+  default     = "name=eth0,bridge=vmbr0,ip=dhcp"
 }

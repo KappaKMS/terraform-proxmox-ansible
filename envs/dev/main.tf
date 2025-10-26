@@ -1,6 +1,7 @@
 module "lxc_client1" {
   source     = "/home/kappa/repositories/terraform-proxmox-ansible/modules/lxc_container"
-  name       = "remote_client_01"
+  container_count = 3
+  hostname     = "testclient-${count.index + 1}"
   memory     = 1024
   cpu        = 1
   disk       = "10G"
