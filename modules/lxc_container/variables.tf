@@ -19,6 +19,7 @@ variable "base_template" {
 variable "ansible_password" {
   description = "Password for the ansible user"
   type        = string   
+  sensitive = true
 }
 
 variable "container_password" {
@@ -48,4 +49,20 @@ description = "Proxmox host address"
 type        = string
 sensitive   = true
 
+}
+
+variable "name" {
+
+}
+variable "memory" {
+
+}
+variable "cpu" {
+
+}
+variable "disk" {
+
+}
+variable "ssh_pubkey" {
+  
 }
