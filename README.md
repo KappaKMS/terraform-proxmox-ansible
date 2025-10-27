@@ -1,6 +1,7 @@
 🧠 This project focuses on diving deep into virtualization, automation, and infrastructure-as-code — building everything from the ground up inside my Proxmox lab. Of course, I've used AI and all the available documentation that I could get my hands on. I am very excited about my progress so far!
 
 🖥️ Proxmox Virtual Environment
+
 Installed Proxmox VE on a single NVMe drive and learned how its installer manages LVM storage for ISOs, VM disks, and backups.
 Created multiple Alpine 3.22 LXC containers from a base template, practiced Alpine-specific management with apk and rc-service, and configured SSH access and sudo privileges for automation.
 Converted an Alpine LXC into a reusable Proxmox template for quick redeployment of pre-configured environments.
@@ -9,6 +10,7 @@ Converted an Alpine LXC into a reusable Proxmox template for quick redeployment 
 
 
 ☁️ Terraform Integration
+
 Installed Terraform on the Ubuntu control node to automate Proxmox deployments.
 Used Terraform to provision three identical Ubuntu LXC containers, each preconfigured with an ansible user (added to the sudoers group).
 Passed the control node’s SSH public key automatically to ensure passwordless access from the start.
@@ -17,6 +19,7 @@ Passed the control node’s SSH public key automatically to ensure passwordless 
 
 
 ⚙️ Ansible Automation
+
 Configured an Ubuntu 22.04 control node with Ansible and private/public key SSH to all containers.
 Wrote playbooks to update packages, install essential tools (vim, curl, lsof), and validate running services across all clients.
 
@@ -24,6 +27,7 @@ Wrote playbooks to update packages, install essential tools (vim, curl, lsof), a
 
 
 🧠 Version Control with GitHub
+
 Created a dedicated GitHub repository for managing my Ansible and Terraform configurations.
 Practiced Git fundamentals — adding files, committing changes, branching, and pushing to both master and dev.
 This extended lab tied together virtualization, configuration management, and infrastructure as code — giving me a deeper understanding of how modern DevOps workflows connect from bare metal to automation and version control.
