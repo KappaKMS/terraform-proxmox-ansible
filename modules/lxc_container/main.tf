@@ -20,7 +20,7 @@ data "local_file" "sshkey" {
 
 resource "proxmox_lxc" "ubuntu_containers" {
   count    = var.container_count
-  hostname = "testclient${count.index + 1}"
+  hostname = "ubuntu-container${count.index + 1}"
   target_node  = var.proxmox_host
   ostemplate   = var.base_template
   unprivileged = true
@@ -32,7 +32,7 @@ resource "proxmox_lxc" "ubuntu_containers" {
   network{
     name = "eth0"
     bridge = "vmbr0"
-    ip = "192.168.0.${count.index + 203}/24"
+    ip = "192.168.0.${count.index + 200}/24"
     gw = "192.168.0.1"
 
   }
@@ -47,6 +47,7 @@ resource "proxmox_lxc" "ubuntu_containers" {
   }
 
   startup = "order=1"
+  onboot = true
 
   start = true
 
@@ -81,9 +82,24 @@ resource "null_resource" "install_ssh" {
       type        = "ssh"
       user        = "root"
       private_key = file("~/.ssh/id_ed25519")
-      host     = "192.168.0.${count.index + 203}"  # example static IPs
+      host     = "192.168.0.${count.index + 200}"  # example static IPs
     }
   }
+}
+
+resource "local_file" "ansible_inventory" {
+  filename = var.path_ansible_inventory
+
+  content = yamlencode({
+    myhosts = {
+      hosts = {
+        for i, ct in proxmox_lxc.ubuntu_containers :
+        ct.hostname => {
+          ansible_host = "192.168.0.${i + 200}"
+        }
+      }
+    }
+  })
 }
 
 

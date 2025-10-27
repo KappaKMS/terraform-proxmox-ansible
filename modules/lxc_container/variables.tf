@@ -7,7 +7,7 @@ variable "proxmox_host" {
 variable "container_count" {
   description = "Number of LXC containers to create"
   type        = number
-  default     = 2
+  default     = 3
 }
 
 variable "base_template" {
@@ -48,6 +48,13 @@ variable "proxmox_host_address"{
 description = "Proxmox host address"
 type        = string
 sensitive   = true
+
+}
+
+variable "path_ansible_inventory" {
+  description = "Path to ansible yaml inventory file"
+  type = string
+  default = "/home/kappa/repositories/terraform-proxmox-ansible/playbooks/inventory.yaml"
 
 }
 
